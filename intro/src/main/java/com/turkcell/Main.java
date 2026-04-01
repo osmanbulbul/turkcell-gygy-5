@@ -83,6 +83,34 @@ public class Main
         System.out.println(str3==str4); // false, farklı referanslar
 
         System.out.println("Merhaba" + " " + "Dünya!");
+
+        System.out.println(10 * 20);
+        System.out.println(10 / 3);
+
+        System.out.println(1 == 1);
+        System.out.println(1 != 1);
+        System.out.println(5 > 10);
+
+        a = a + 5;
+        a+=5;
+        a++; // a = a + 1;
+
+        // Döngüler
+
+        // X işlemini birden fazla kez çalıştırmak.
+        // iteration = yineleme
+        // değişken, koşul, her iterasyon sonrası işlem
+        for(int i=0; i<5; i++) {
+            System.out.println(i);
+        }
+
+        String[] students = {"Halit", "Ayşe", "Mehmet"};
+        for(int i=0; i<students.length; i++) {
+            System.out.println(students[i]);    
+        }
+        for(String z: students) {
+            System.out.println(z);
+        }
     }
 
     
