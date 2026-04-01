@@ -29,6 +29,9 @@ public class Main
         boolean isStudent = true;
         char grade = 'A';
 
+        name = "Nurgül";
+
+
         // Diziler (Arrays)
 
         String[] names = { "Halit", "Ayşe", "Mehmet" };
@@ -117,6 +120,15 @@ public class Main
             System.out.println("Sonsuz döngü");
             whileDongusu++;
         }
+
+        String name2 = "Halit";
+        System.out.println(name2);
+        name2 = "Nurgül";
+        System.out.println(name2);
+        String name3 = name2.concat("abc"); 
+        // String immutable (değiştirilemez) bir yapıya sahiptir. 
+        // concat() gibi metotlar yeni bir String oluşturur, mevcut String'i değiştirmez.
+        System.out.println(name3);
     }
 
     
