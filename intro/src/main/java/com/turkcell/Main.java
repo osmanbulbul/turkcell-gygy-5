@@ -180,6 +180,13 @@ public class Main
 
         // result2 db'e yaz
         // result3 mail at..
+
+
+        double toplam1 = sum(10.5, 20.3);
+        System.out.println(toplam1);
+
+        double toplam2 = sum(1,2,3,4,5,6,7);
+        System.out.println(toplam2);
     }
     // Methodlar => belirli bir işi yapan kod bloklarıdır. Tekrar tekrar kullanılabilirler.
     // erişim-belirteci - static veya boş - dönüş tipi (void => boş) - method ismi - (parametreler) - {}
@@ -212,4 +219,15 @@ public class Main
         return calculateGrade(grade, "Öğrenci");
     }
   
+    public static double sum(double a, double b){
+        return a + b;
+    }
+
+    public static double sum(double... numbers) { // varargs
+        double total = 0;
+        for(double num: numbers) {
+            total += num;
+        }
+        return total;
+    }
 } 
