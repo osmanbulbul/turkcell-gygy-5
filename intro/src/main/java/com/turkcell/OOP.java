@@ -21,5 +21,7 @@ public class OOP {
     
         Bike bike1 = new Bike();
 
+        Car car2 = new Car(true, "Mercedes");
+        System.out.println(car2.getBrand());
     }
 }
