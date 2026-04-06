@@ -4,13 +4,22 @@ public class OOP {
     public static void main(String[] args) {
         Car car1 = new Car(); // new Car(); 
         // yeni bir araba nesnesi örneği (instance) üret
-        car1.brand = "BMW"; // set işlemi (değer atama)
-        car1.model = "X5";
-        car1.year = 2020;
-        //car1.pricePerDay = -500.0;
+        car1.setBrand("BMW"); // set işlemi (değer atama)
+        car1.setModel("X5");
+        car1.setYear(2020);
         car1.setPricePerDay(-500.0);
 
-        System.out.println(car1.brand); // get işlemi (değer okuma)
+        String[] specs = {"Cam Tavan", "Bebek Koltuğu","Otonom Sürüş"};
+        car1.setSpecs(specs);
+
+        String[] x = car1.getSpecs();
+        x[0] = "abc";
+
+        System.out.println(car1.getSpecs()[0]); // Cam Tavan
+        System.out.println(car1.getBrand()); // get işlemi (değer okuma)
         System.out.println(car1.getPricePerDay()); // private olduğu için erişilemez
+    
+        Bike bike1 = new Bike();
+
     }
 }

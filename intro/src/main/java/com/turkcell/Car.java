@@ -1,33 +1,18 @@
 package com.turkcell;
 
-// Car isminde bir type oluşturmak.
-public class Car 
+// Vehicle'ın tüm özelliklerini yükle, üstüne 
+// buraya yazacağım özellikleri de ekle => CAR
+public class Car extends Vehicle
 {
-    // GERÇEK HAYATTAKİ HER ŞEYİ DEĞİL, 
-    // PROGRAMDA İHTİYACIMIZ OLAN ŞEYLERİ MODELLEMEK İSTİYORUZ.
+    private boolean hasSunroof;
+    private String[] specs;
 
-    public String brand;
-    public String model;
-    public int year;
-    // public -> Her noktadan erişilebilir alan.
-
-
-    // ENCAPSULATION (KAPSÜLLEME)
-    // read-only write-only
-    private Double pricePerDay;
-
-    // setter method
-    public void setPricePerDay(Double pricePerDay) {
-        // this => sınıfın kendisi
-        if(pricePerDay < 0)
-        {
-            System.out.println("Fiyat negatif olamaz. 0'a eşitleniyor..");
-            pricePerDay = 0.0;
-        }
-        this.pricePerDay = pricePerDay;
+    // Encapsulation => Dışarıdan manipülasyona kapalı.
+    public String[] getSpecs() {
+        return specs.clone();
     }
-    // getter method
-    public Double getPricePerDay() {
-        return this.pricePerDay;
+    public void setSpecs(String[] specs) {
+        this.specs = specs.clone();
     }
+    // Değerlerini al, referansı alma.
 }
