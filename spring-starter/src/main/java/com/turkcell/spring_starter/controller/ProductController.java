@@ -1,36 +1,84 @@
 package com.turkcell.spring_starter.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.random.RandomGenerator;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.turkcell.spring_starter.dto.ProductCreatedResponse;
+import com.turkcell.spring_starter.dto.ProductForCreateDto;
 import com.turkcell.spring_starter.model.Product;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
+// Altın kural: Veritabanı nesneleri requestte de responseda da kullanılamaz.
 @RestController 
-@RequestMapping("/api/product") // bu controllera gelen istekler /api/product ile baslamali
-
+@RequestMapping("/api/product") 
 public class ProductController {
-    // kullancii ne zaman /api/product alanind istek atarsa bu fonkstondan donen cevap olsun.
-    // api/proccut -> sayHi(); match
-    // http method -> GET POST PUT DELETE PATCH
+    // In-Memory Çalış..
+    private List<Product> productList = new ArrayList<>();
 
-//http://localhost:8080/api/product?name=osman query string denir buna. Paramtreleri & ile ayrilir.
-    @GetMapping("") // controllerin uzantisi +get in uzantisi ->/api/product
-    public String sayHi(String name,int age){
-        return "Hi, " + name + "You are " + age + " years old.";
+
+    @GetMapping()
+    public List<Product> getAllProducts() {
+        // Veritabanındaki Product nesnelerini listele.
+        return productList;
     }
 
-    //conrollerin uzantisi +geti in uzantisi -> /api/produc/hello
-    @GetMapping("hello/{name}/{age}")
-    public String sayHello(@PathVariable String name,@PathVariable int age){// ben bu name i path variable olarak almak istiyorum. /api/product/hello/osman
-        return "Hello "+ name+ "yasiniz: "+age;
+    @GetMapping("{id}")
+    public Product getProductById(@PathVariable int id) 
+    {
+        // Listeden id == product.getId() ise onu yoksa null dön.
+        return productList.stream().filter(i->i.getId() == id).findFirst().orElse(null);
     }
 
+
+    // Request-Response Pattern =>
+    // Her istek-cevap kendine has bir modele sahip olmak zorunda!
+    // Birebir başka bir istek-cevap çiftiyle aynı içeriğe sahip olsa dahil!
     @PostMapping
-    public Product add(@RequestBody Product product){ // JSON -> Java objesine
-        return product;
+    public ProductCreatedResponse createProduct(@RequestBody ProductForCreateDto productDto) {
+        // Veritabanına product nesnesini ekle..
+
+        // Sen dışardan ProductForCreateDto alıyosun 
+        // ama veritabanı Product ile çalışıyor
+
+        // Transfer => MANUAL MAPPING
+        Product product = new Product();
+        product.setName(productDto.getName());
+        product.setPrice(productDto.getPrice());
+        product.setId(new Random().nextInt(999));
+
+        productList.add(product);
+
+        // Domain Nesnesi -> Dto
+        ProductCreatedResponse response = new ProductCreatedResponse();
+        response.setId(product.getId());
+        response.setName(product.getName());
+        response.setPrice(product.getPrice());
+
+        return response;
+    }
+    @PutMapping
+    public void updateProduct(@RequestBody Product product) {
+        ///..
+        Product productToUpdate = productList.stream().filter(p -> p.getId() == product.getId()).findFirst().orElseThrow();
+
+        productToUpdate.setName(product.getName());
+        productToUpdate.setPrice(product.getPrice());
+    }
+    @DeleteMapping("{id}")
+    public void deleteProduct(@PathVariable int id) {
+        ///.. Todo..
     }
 }
+
+// DTO => Data Transfer Object
+// Entity ile X (controller,service) arası veri transferi için oluşturulan sınıflardır.
