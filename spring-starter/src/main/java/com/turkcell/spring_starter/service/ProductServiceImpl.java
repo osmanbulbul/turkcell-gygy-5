@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.stereotype.Service;
 
 import com.turkcell.spring_starter.dto.ProductCreatedResponse;
@@ -24,9 +26,12 @@ public class ProductServiceImpl {
 
     public ProductCreatedResponse create(ProductForCreateDto productDto)
     {
-        if(productDto.getPrice() < 0)
-            throw new RuntimeException("Para 0'dan küçük olamaz.");
+        // Aynı isimde 2 ürün olamaz
 
+        // Business Rule
+
+        checkIfProductWithSameNameExist(productDto.getName());
+        
         Product product = new Product();
         product.setName(productDto.getName());
         product.setPrice(productDto.getPrice());
@@ -41,6 +46,29 @@ public class ProductServiceImpl {
 
         return response;
     }
+
+    public void update() {
+        // Aynı iş kuralı..
+        checkIfProductWithSameNameExist("");
+    }
+
+    // İş kuralları -> Kendine has bir classta bulunmalıdır. -> ProductBusinessRules.java
+    private void checkIfProductWithSameNameExist(String name) {
+        Product productWithSameName = productsInMemory
+                                        .stream()
+                                        .filter(product->product.getName().equals(name))
+                                        .findFirst()
+                                        .orElse(null);
+
+        if(productWithSameName != null)
+            throw new RuntimeException("Aynı isimde 2 ürün eklenemez");
+    }
 }
 
 // Auto-generated
+
+// IProductRepository -> ProductRepository
+
+// ProductRepository <Product> -> Spring auto-generated.
+
+// Spring IoC Nedir? Bean,Service nedir? 

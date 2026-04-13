@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
 
 import com.turkcell.spring_starter.dto.ProductCreatedResponse;
 import com.turkcell.spring_starter.dto.ProductForCreateDto;
@@ -50,7 +51,7 @@ public class ProductController {
     // Her istek-cevap kendine has bir modele sahip olmak zorunda!
     // Birebir başka bir istek-cevap çiftiyle aynı içeriğe sahip olsa dahil!
     @PostMapping
-    public ProductCreatedResponse createProduct(@RequestBody ProductForCreateDto productDto) {
+    public ProductCreatedResponse createProduct(@RequestBody  @Valid ProductForCreateDto productDto) {
         // Veritabanına product nesnesini ekle..
 
         // Sen dışardan ProductForCreateDto alıyosun 
