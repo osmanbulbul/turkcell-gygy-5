@@ -1,18 +1,46 @@
 package com.turkcell.spring_starter.service;
-//Implementattón
-//IProductService
-//ProductService
-// ProductServerImpl
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import org.springframework.stereotype.Service;
+
+import com.turkcell.spring_starter.dto.ProductCreatedResponse;
+import com.turkcell.spring_starter.dto.ProductForCreateDto;
+import com.turkcell.spring_starter.model.Product;
+
+// Implementation
+// IProductService ❌
+// ProductService ✔
+// ProductServiceImpl ✔
+@Service // IoC'e bu türü ekledin.
 public class ProductServiceImpl {
-    //controllerin size aktaracagi isleri tanimla
-    //is kodu...
+    // Controller'ın size aktaracağı işleri tanımla.
+    // iş kodu..
+
+    // repo
+    private final List<Product> productsInMemory = new ArrayList<>();
+
+    public ProductCreatedResponse create(ProductForCreateDto productDto)
+    {
+        if(productDto.getPrice() < 0)
+            throw new RuntimeException("Para 0'dan küçük olamaz.");
+
+        Product product = new Product();
+        product.setName(productDto.getName());
+        product.setPrice(productDto.getPrice());
+        product.setId(new Random().nextInt(999));
+
+        productsInMemory.add(product); // repo
+
+        ProductCreatedResponse response = new ProductCreatedResponse();
+        response.setId(product.getId());
+        response.setName(product.getName());
+        response.setPrice(product.getPrice());
+
+        return response;
+    }
 }
 
-//Auto-generated 
-
-//IproductRepository -> Product Repository
-
-//ProductRepository <Product> Spring auto-generated.
-
-// Spring IoC nedri ? Bean,Service Nedir? 
+// Auto-generated

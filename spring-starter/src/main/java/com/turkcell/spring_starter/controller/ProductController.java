@@ -3,7 +3,6 @@ package com.turkcell.spring_starter.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.random.RandomGenerator;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.turkcell.spring_starter.dto.ProductCreatedResponse;
 import com.turkcell.spring_starter.dto.ProductForCreateDto;
 import com.turkcell.spring_starter.model.Product;
+import com.turkcell.spring_starter.service.ProductServiceImpl;
 
-// Altın kural: Veritabanı nesneleri requestte de responseda da kullanılamaz.
-@RestController 
+// Altın kural: Veritabanı nesneleri requestte de responseda da kullanılamaz. 
+@RestController // Uygulamada gerektiğinde controlleri newle.
 @RequestMapping("/api/product") 
 public class ProductController {
     // In-Memory Çalış..
@@ -31,12 +31,18 @@ public class ProductController {
         // Veritabanındaki Product nesnelerini listele.
         return productList;
     }
+    //private final ProductServiceImpl productServiceImpl = new ProductServiceImpl();
+    private final ProductServiceImpl productServiceImpl;
 
     @GetMapping("{id}")
     public Product getProductById(@PathVariable int id) 
     {
         // Listeden id == product.getId() ise onu yoksa null dön.
         return productList.stream().filter(i->i.getId() == id).findFirst().orElse(null);
+    }
+
+    public ProductController(ProductServiceImpl productServiceImpl) {
+        this.productServiceImpl = productServiceImpl;
     }
 
 
@@ -49,6 +55,8 @@ public class ProductController {
 
         // Sen dışardan ProductForCreateDto alıyosun 
         // ama veritabanı Product ile çalışıyor
+        if(productDto.getPrice() < 0)
+            throw new RuntimeException("Para 0'dan küçük olamaz.");
 
         // Transfer => MANUAL MAPPING
         Product product = new Product();
@@ -66,10 +74,9 @@ public class ProductController {
 
         return response;
 
-        // ben controller olarak isnkodu calistiramam., ama bunu yapmam gerekli
-        // is kodunu calistiracak olan yapiya bagimliyim.
-        // bagimlilik enheksiyonu -> Dependecy Injection => Spring Framework'un en onemli ozelliklerinden biri. Bir nesnenin ihtiyaci olan diger nesneleri kendisinin olusturmasi yerine, bu nesnelerin disardan verilmesi prensibine dayanir. Bu sayede kodun bagimsizligi artar, test edilebilirlik kolaylasir ve esneklik saglanir. Spring, dependency injection'i otomatik olarak yaparak, geliştiricilerin daha az kod yazmasını ve daha moduler bir uygulama yapısı oluşturmasını sağlar.
-        
+        // Ben controller olarak iş kodu çalıştıramam, ama bunu yapmam gerekli..
+        // İş kodunu çalıştıracak olan yapıya BAĞIMLIYIM.
+        // Bağımlılık Enjeksiyonu -> Dependency Injection
     }
     @PutMapping
     public void updateProduct(@RequestBody Product product) {
@@ -83,6 +90,11 @@ public class ProductController {
     public void deleteProduct(@PathVariable int id) {
         ///.. Todo..
     }
+
+    public ProductCreatedResponse create(@RequestBody ProductForCreateDto productDto) {
+        return this.productServiceImpl.create(productDto);
+    }
+
 }
 
 // DTO => Data Transfer Object
