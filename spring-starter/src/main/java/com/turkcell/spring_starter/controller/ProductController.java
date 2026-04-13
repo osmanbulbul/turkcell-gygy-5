@@ -65,6 +65,11 @@ public class ProductController {
         response.setPrice(product.getPrice());
 
         return response;
+
+        // ben controller olarak isnkodu calistiramam., ama bunu yapmam gerekli
+        // is kodunu calistiracak olan yapiya bagimliyim.
+        // bagimlilik enheksiyonu -> Dependecy Injection => Spring Framework'un en onemli ozelliklerinden biri. Bir nesnenin ihtiyaci olan diger nesneleri kendisinin olusturmasi yerine, bu nesnelerin disardan verilmesi prensibine dayanir. Bu sayede kodun bagimsizligi artar, test edilebilirlik kolaylasir ve esneklik saglanir. Spring, dependency injection'i otomatik olarak yaparak, geliştiricilerin daha az kod yazmasını ve daha moduler bir uygulama yapısı oluşturmasını sağlar.
+        
     }
     @PutMapping
     public void updateProduct(@RequestBody Product product) {
