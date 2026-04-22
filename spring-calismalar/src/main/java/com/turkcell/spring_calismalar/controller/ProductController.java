@@ -1,6 +1,7 @@
 package com.turkcell.spring_calismalar.controller;
 
 import com.turkcell.spring_calismalar.dto.ProductRequest;
+import com.turkcell.spring_calismalar.entity.Product;
 import com.turkcell.spring_calismalar.service.ProductService;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -90,26 +91,38 @@ public class ProductController {
         this.productService = productService;
     }
 
+    //urun ekleme endponti.
     @PostMapping("/add")
-    public ResponseEntity<String> addProduct(@RequestBody ProductRequest request){
-
-        //burada isi service ye pasliyoruz.
-        String result=productService.addProduct(request);
+    public ResponseEntity<String> addProduct(@RequestBody Product product){
+        String result=productService.addProduct(product);
         return new ResponseEntity<>(result,HttpStatus.CREATED);
     }
 
+    //tum urunleri getirme endpointi
     @GetMapping("/all")
-    public ResponseEntity<List<ProductRequest>> getAllProducts(){
-
-        //vberiyi serviceden iste.
+    public ResponseEntity<List<Product>> getAllProducts(){
         return new ResponseEntity<>(productService.getAllProducts(),HttpStatus.OK);
     }
 
-    @PostMapping("/delete")
-    public ResponseEntity<String> deleteProducts(@RequestBody ProductRequest request){
-        String result=productService.deleteProduct(request);
+    //  urunleri komple silme endpointi 
+    @DeleteMapping("/clear")
+    public ResponseEntity<String> clearAllProducts(){
+        String result=productService.clearAll();
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
+
+    // @GetMapping("/all")
+    // public ResponseEntity<List<ProductRequest>> getAllProducts(){
+
+    //     //vberiyi serviceden iste.
+    //     return new ResponseEntity<>(productService.getAllProducts(),HttpStatus.OK);
+    // }
+
+    // @PostMapping("/delete")
+    // public ResponseEntity<String> deleteProducts(@RequestBody ProductRequest request){
+    //     String result=productService.deleteProduct(request);
+    //     return new ResponseEntity<>(result,HttpStatus.OK);
+    // }
 
     // @DeleteMapping("/delete")
     // public ResponseEntity<String> deleteAllProducts(){
