@@ -1,10 +1,14 @@
 package com.turkcell.spring_starter.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.stereotype.Service;
 
 import com.turkcell.spring_starter.dto.CreateCategoryRequest;
 import com.turkcell.spring_starter.dto.CreatedCategoryResponse;
+import com.turkcell.spring_starter.dto.ListCategoryResponse;
 import com.turkcell.spring_starter.entity.Category;
 import com.turkcell.spring_starter.repository.CategoryRepository;
 
@@ -32,4 +36,20 @@ public class CategoryServiceImpl {
 
         return response;
     } 
+
+    public List<ListCategoryResponse> getAll() {
+        List<Category> categories = categoryRepository.findAll();
+
+        // TODO: Refactor
+        List<ListCategoryResponse> responseList = new ArrayList<>();
+
+        for (Category category : categories) {
+            ListCategoryResponse response = new ListCategoryResponse();
+            response.setId(category.getId());
+            response.setName(category.getName());
+            responseList.add(response);
+        }
+
+        return responseList;
+    }
 }
