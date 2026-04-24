@@ -3,12 +3,12 @@ package com.turkcell.spring_starter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication // anntation: bulundugu class fonk degiskene ozellik kazandiran yapidir. SpringBoot uygulamasinin baslatilmasi icin gerekli olan bir annotationdur.
+@SpringBootApplication // Annotation => Bulunduğu class,fonk,değişken'e özellik kazandıran yapıdır.
 public class SpringStarterApplication {
 
-	// Entry point
+	// Entrypoint
 	public static void main(String[] args) {
-		SpringApplication.run(SpringStarterApplication.class, args);// springi baslatmak icin kullanlir.
+		SpringApplication.run(SpringStarterApplication.class, args);
 	}
 
 }
