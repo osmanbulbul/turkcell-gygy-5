@@ -1,10 +1,5 @@
 package com.turkcell.spring_starter.dto;
 
-public class GetByIdCategoryResponse {
-
-}
-package com.turkcell.spring_starter.dto;
-
 import java.util.UUID;
 
 public class GetByIdCategoryResponse {
