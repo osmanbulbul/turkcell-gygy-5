@@ -1,0 +1,14 @@
+package com.turkcell.spring_starter.dto;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+public class CreateTagRequest {
+
+    @NotBlank(message = "Tag adı boş olamaz")
+    @Size(max = 100)
+    private String name;
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+}
