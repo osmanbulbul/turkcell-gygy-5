@@ -17,11 +17,11 @@ import com.turkcell.spring_starter.service.ProductServiceImpl;
 
 @RestController
 @RequestMapping("/api/products")
-public class Productscontroller {
+public class ProductsController {
 
     private final ProductServiceImpl productServiceImpl;
 
-    public Productscontroller(ProductServiceImpl productServiceImpl) {
+    public ProductsController(ProductServiceImpl productServiceImpl) {
         this.productServiceImpl = productServiceImpl;
     }
 
