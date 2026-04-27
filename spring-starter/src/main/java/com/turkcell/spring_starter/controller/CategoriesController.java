@@ -11,19 +11,16 @@ import com.turkcell.spring_starter.service.CategoryServiceImpl;
 
 import java.util.List;
 
-
-
-// Bu projedeki tum enttiyler icin TUM CRUD islemleri kodlanbmali
-// get get by id add update delete islemlerini teker teker yapacagiz.
-// Arastirma ODEV ISE SU : JPQL nedir ne icin kullanlir.Bunun kullanimina bakacagiz.
-// Kutuphane sistemimizi code-first olsturun. Koda dokulmus halini yapacagiz.,
-
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+// Bu projedeki tüm entityler için tüm CRUD işlemleri kodlanmalı.
+// GET-GET BY ID-ADD-UPDATE-DELETE
 
+// Kütüphane sisteminizi code-first oluşturun.
+
+// JPQL  
 @RestController
 @RequestMapping("/api/categories")
 public class CategoriesController {
@@ -44,3 +41,9 @@ public class CategoriesController {
         return categoryServiceImpl.getAll();
     }
 }
+
+
+// Bu projedeki tum enttiyler icin TUM CRUD islemleri kodlanbmali
+// get get by id add update delete islemlerini teker teker yapacagiz.
+// Arastirma ODEV ISE SU : JPQL nedir ne icin kullanlir.Bunun kullanimina bakacagiz.
+// Kutuphane sistemimizi code-first olsturun. Koda dokulmus halini yapacagiz.,
