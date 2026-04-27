@@ -63,7 +63,6 @@ public class CategoriesController {
     }
 }
 
-
 // Bu projedeki tum enttiyler icin TUM CRUD islemleri kodlanbmali
 // get get by id add update delete islemlerini teker teker yapacagiz.
 // Arastirma ODEV ISE SU : JPQL nedir ne icin kullanlir.Bunun kullanimina bakacagiz.
